@@ -621,7 +621,8 @@
 				3DDAD644164FE51B00E6B8D6 /* Frameworks */,
 				3DDAD645164FE51B00E6B8D6 /* Headers */,
 				3DDAD646164FE51B00E6B8D6 /* Resources */,
-				3DDAD7B4164FEC3A00E6B8D6 /* ShellScript */,
+				3DDAD7B4164FEC3A00E6B8D6 /* Run Header Copy Script */,
+				3DDAD7D6165001D400E6B8D6 /* Run Version Script */,
 			);
 			buildRules = (
 			);
@@ -669,18 +670,33 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		3DDAD7B4164FEC3A00E6B8D6 /* ShellScript */ = {
+		3DDAD7B4164FEC3A00E6B8D6 /* Run Header Copy Script */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
+			name = "Run Header Copy Script";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "echo 'SRCROOT:'${SRCROOT}\ncd \"${SRCROOT}/External/libcork/include/libcork\"\n\necho 'Copying libcork headers into framework...'\nfor H in `find ./ -name \"*.h\"`;  do\n    #echo ${H}\n    ditto ${H} \"$TARGET_BUILD_DIR/$PRODUCT_NAME.$WRAPPER_EXTENSION/Headers/${H}\"\ndone\n";
+			shellScript = "#echo 'SRCROOT:'${SRCROOT}\ncd \"${SRCROOT}/External/libcork/include/libcork\"\n\necho 'Copying headers into framework...'\nfor H in `find ./ -name \"*.h\"`;  do\n    #echo ${H}\n    ditto ${H} \"$TARGET_BUILD_DIR/$PRODUCT_NAME.$WRAPPER_EXTENSION/Headers/${H}\"\ndone\n";
+		};
+		3DDAD7D6165001D400E6B8D6 /* Run Version Script */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Run Version Script";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "cd \"${SRCROOT}/External/libcork/\"\nVERSION=`./version.sh`\n#echo \"$VERSION\"\nVERSION_NUM=`echo $VERSION | sed 's/\\-.*//'`\n\necho -n \"${TARGET_BUILD_DIR}/${INFOPLIST_PATH}\" \\\n| xargs -0 /usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $VERSION\"\necho -n \"${TARGET_BUILD_DIR}/${INFOPLIST_PATH}\" \\\n| xargs -0 /usr/libexec/PlistBuddy -c \"Set :CFBundleShortVersionString $VERSION_NUM\"\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
