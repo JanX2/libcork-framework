@@ -1,0 +1,7 @@
+//
+// Prefix header for all source files of the 'libcork' target in the 'libcork' project
+//
+
+#ifdef __OBJC__
+	#import <Cocoa/Cocoa.h>
+#endif

@@ -1,0 +1,3 @@
+[submodule "External/libcork"]
+	path = External/libcork
+	url = git://github.com/redjack/libcork.git
