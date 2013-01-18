@@ -24,3 +24,7 @@ And finally add the headers you need to your code. This example will add the hea
 
     #import <libcork/ds.h>
 
+License
+-------
+
+The same license that applies for libcork applies for the contents of this repository.
